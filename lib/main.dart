@@ -12,13 +12,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // เมธอด build() ส่งคืนโครงสร้างต้นไม้วิดเจ็ตสำหรับวิดเจ็ตนี้
+    // ภายใน MyApp.build()
     return MaterialApp(
+      title: 'My Awesome App',
+      debugShowCheckedModeBanner: false, // ซ่อนแบนเนอร์ debug
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        //useMaterial3: true,
+        useMaterial3: true, // ใช้ Material Design เวอร์ชันล่าสุด
       ),
-      title: 'Flutter Demo',
-      home: const MyHomePage(),
+      home: const MyHomePage(), // วิดเจ็ตหน้าจอหลักของคุณ
     );
   }
 }
@@ -31,29 +33,33 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       // ให้โครงสร้างแอปพื้นฐาน
       appBar: AppBar(
-        title: const Text('Chapter 3 Lab'),
-        backgroundColor: Colors.teal, // ปรับแต่งสี AppBar
+        title: const Text('Home Page'),
+        backgroundColor: Colors.blue, // ปรับแต่งสี AppBar
       ),
       body: Center(
+        // พื้นที่เนื้อหาหลัก
         child: Container(
-          // กล่อง
-          padding: EdgeInsets.all(50.0),
+          padding: EdgeInsets.all(10.0),
           width: 300.0,
-          height: 200.0,
-          //color: Colors.amber, // สีพื้นหลัง
+          height: 150.0,
           decoration: BoxDecoration(
             color: Colors.amber,
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(10.0),
+              right: Radius.elliptical(50.0, 10),
+            ),
           ),
-          child: const Text(
-            'inside container',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20.0, color: Colors.brown),
+          child: Center(
+            child: Image.asset(
+              'assets/images/Cat.jpg',
+              width: 150,
+              // height: 100, // สามารถละเว้นมิติหนึ่งเพื่อรักษาอัตราส่วนภาพ
+              fit: BoxFit.contain, // ปรับขนาดให้พอดีภายในกล่องโดยไม่ตัดภาพ
+            ),
           ),
         ),
       ),
 
-      // Child และ Padding จะมาตรงนี้
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // การกระทำที่จะทำเมื่อกดปุ่ม
