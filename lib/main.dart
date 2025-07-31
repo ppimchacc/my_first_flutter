@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart'; // Import ไลบรารี Material ของ Flutter
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   // จุดเริ่มต้นของแอป Flutter
@@ -28,44 +29,96 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
+  // ภายในเมธอด build ของ MyHomePage
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // ให้โครงสร้างแอปพื้นฐาน
       appBar: AppBar(
         title: const Text('Home Page'),
-        backgroundColor: Colors.blue, // ปรับแต่งสี AppBar
+        backgroundColor: const Color.fromARGB(255, 199, 103, 255), // ปรับแต่งสี AppBar
       ),
-      body: Center(
-        // พื้นที่เนื้อหาหลัก
-        child: Container(
-          padding: EdgeInsets.all(10.0),
-          width: 300.0,
-          height: 150.0,
-          decoration: BoxDecoration(
-            color: Colors.amber,
-            borderRadius: BorderRadius.horizontal(
-              left: Radius.circular(10.0),
-              right: Radius.elliptical(50.0, 10),
+      body: Padding(
+        // เพิ่ม Padding รอบ Column
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          // ใช้ Column สำหรับเลย์เอาต์แนวตั้ง
+          // crossAxisAlignment:
+          //     CrossAxisAlignment.center, // จัดกึ่งกลางไอเท็มแนวนอน
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.network('https://picsum.photos/seed/flutter/400/200'),
+            const SizedBox(height: 16.0),
+            Image.asset(
+              'assets/images/CAT.jpg',
+              errorBuilder: (context, error, stackTrace) {
+                // แนวปฏิบัติที่ดีแม้สำหรับ assets, เผื่อกรณีพาธผิด
+                return const Text(
+                  'เกิดข้อผิดพลาดในการโหลด asset',
+                  style: TextStyle(color: Colors.red),
+                );
+              },
             ),
-          ),
-          child: Center(
-            child: Image.asset(
-              'assets/images/Cat.jpg',
-              width: 150,
-              // height: 100, // สามารถละเว้นมิติหนึ่งเพื่อรักษาอัตราส่วนภาพ
-              fit: BoxFit.contain, // ปรับขนาดให้พอดีภายในกล่องโดยไม่ตัดภาพ
-            ),
-          ),
-        ),
-      ),
+            const SizedBox(height: 16.0),
+            Container(
+              width: 300.0,
+              decoration: BoxDecoration(
+                color: Colors.brown,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // การกระทำที่จะทำเมื่อกดปุ่ม
-          print('FAB Pressed!');
-        },
-        child: const Icon(Icons.add), // ไอคอนสำหรับปุ่ม
+              child: Text(
+                'สวัสดี Flultter',
+                style: GoogleFonts.lato(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber,
+                ),
+
+                // style: TextStyle(
+                //   fontSize: 20.0,
+                //   fontWeight: FontWeight.bold,
+                //   color: Colors.amber
+                // ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // จัดกึ่งกลางปุ่มแนวนอน
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    print('กดปุ่ม Elevated');
+                  },
+                  child: const Text('Elevated'),
+                ),
+                const SizedBox(width: 16.0), // เว้นวรรคระหว่างปุ่ม
+                OutlinedButton(
+                  onPressed: () {
+                    print('กดปุ่ม Outlined');
+                  },
+                  child: const Icon(Icons.person),
+                ),
+                const SizedBox(width: 16.0), // เว้นวรรคระหว่างปุ่ม
+                TextButton(
+                  onPressed: () {
+                    print('กดปุ่ม Text');
+                  },
+                  child: const Text('Text'),
+                ),
+              ],
+            ),
+            const SizedBox(width: 16.0),
+            IconButton(
+              onPressed: () {
+                print('กดไอคอน Info');
+              },
+              icon: const Icon(Icons.info_outline),
+              iconSize: 50,
+              tooltip: 'ข้อมูล', // ข้อความช่วยเหลือ
+              color: Colors.blueGrey,
+            ),
+          ],
+        ),
       ),
     );
   }
